@@ -1,0 +1,24 @@
+{
+    "name": "mg-code/yii2-command-logger",
+    "description": "Useful tool for logging some CLI actions",
+    "keywords": ["yii", "yii2", "extension", "trait", "command", "console", "logging", "CLI"],
+    "homepage": "https://github.com/mg-code/yii2-command-logger",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Maris Graudins",
+			"role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*",
+		"mgcode/yii2-helpers": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mgcode\\commandLogger\\": ""
+        }
+    }
+}
