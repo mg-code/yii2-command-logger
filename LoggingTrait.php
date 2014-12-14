@@ -5,7 +5,7 @@ namespace mgcode\commandLogger;
 use mgcode\helpers\TimeHelper;
 
 /**
- * Class MsgTrait
+ * Class LoggingTrait
  * Usually this trait is used for CLI commands.
  * You can simply disable message output by calling in class: $this->msgLoggingEnabled = false
  * @property bool $msgLoggingEnabled
