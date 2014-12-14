@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "*",
-		"mgcode/yii2-helpers": "*"
+		"mg-code/yii2-helpers": "*"
     },
     "autoload": {
         "psr-4": {
