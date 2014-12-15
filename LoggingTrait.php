@@ -9,11 +9,28 @@ use mgcode\helpers\TimeHelper;
  * Usually this trait is used for CLI commands.
  * You can simply disable message output by calling in class: $this->msgLoggingEnabled = false
  * @property bool $msgLoggingEnabled
+ * @property string $loggingCategory the category of logging messages.
  */
 trait LoggingTrait
 {
     /** @var bool Whether to output logging messages */
     protected $_msgLoggingEnabled = true;
+
+    /** @var string */
+    protected $_loggingCategory = 'application';
+
+    public function setLoggingCategory($value)
+    {
+        $this->_loggingCategory = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getLoggingCategory()
+    {
+        return $this->_loggingCategory;
+    }
 
     /**
      * @return bool
@@ -76,7 +93,7 @@ trait LoggingTrait
     {
         $this->msg($msg);
         $msg = get_class($this).' Error: '.$msg;
-        \Yii::error($msg, 'app\modules\crawler');
+        \Yii::error($msg, $this->_loggingCategory);
     }
 
     /**
@@ -88,6 +105,6 @@ trait LoggingTrait
     {
         $this->msg($exception->getMessage());
         $msg = get_class($this).' exception: '.$exception->getMessage()." ".PHP_EOL.$exception->getTraceAsString();
-        \Yii::error($msg, 'app\modules\crawler');
+        \Yii::error($msg, $this->_loggingCategory);
     }
 }
