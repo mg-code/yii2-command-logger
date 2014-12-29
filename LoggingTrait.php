@@ -103,7 +103,7 @@ trait LoggingTrait
      */
     public function logException($exception)
     {
-        $this->msg($exception->getMessage());
+        $this->msg($exception->getMessage().' (line: '.$exception->getLine().')');
         $msg = get_class($this).' exception: '.$exception->getMessage()." ".PHP_EOL.$exception->getTraceAsString();
         \Yii::error($msg, $this->_loggingCategory);
     }
