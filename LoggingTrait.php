@@ -91,9 +91,9 @@ trait LoggingTrait
      */
     public function logError($msg)
     {
-        $this->msg($msg);
         $msg = get_class($this).' Error: '.$msg;
         \Yii::error($msg, $this->_loggingCategory);
+        $this->msg($msg);
     }
 
     /**
@@ -104,7 +104,8 @@ trait LoggingTrait
     public function logException($exception)
     {
         $this->msg($exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')');
-        $msg = get_class($this).' exception: '.$exception->getMessage()." ".PHP_EOL.$exception->getTraceAsString();
+        $msg = get_class($this).' exception: '.$exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')'.PHP_EOL.$exception->getTraceAsString();
         \Yii::error($msg, $this->_loggingCategory);
+        $this->msg($msg);
     }
 }
