@@ -54,18 +54,13 @@ trait LoggingTrait
      * @param string $message
      * @param array $params
      */
-    public function msg($message, $params = array())
+    public function msg($message, $params = [])
     {
         if (!$this->getMsgLoggingEnabled()) {
             return;
         }
 
-        $p = [];
-        foreach ((array) $params as $name => $value) {
-            $p['{'.$name.'}'] = $value;
-        }
-
-        $message = ($p === []) ? $message : strtr($message, $p);
+        $message = $this->_buildMessage($message, $params);
         $memory = round(memory_get_usage() / 1024 / 1024, 1);;
         echo '['.TimeHelper::getTime().']'.' ['.$memory.'MB] '.$message."\r\n";
     }
@@ -87,11 +82,12 @@ trait LoggingTrait
     /**
      * Logs and outputs error
      * Usually needed for CLI commands, when execution should continue after some error.
-     * @param $msg
+     * @param string $msg
+     * @param array $params
      */
-    public function logError($msg)
+    public function logError($msg, $params = [])
     {
-        $msg = get_class($this).' Error: '.$msg;
+        $msg = get_class($this).' Error: '.$this->_buildMessage($msg, $params);
         \Yii::error($msg, $this->_loggingCategory);
         $this->msg($msg);
     }
@@ -107,5 +103,22 @@ trait LoggingTrait
         $msg = get_class($this).' exception: '.$exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')'.PHP_EOL.$exception->getTraceAsString();
         \Yii::error($msg, $this->_loggingCategory);
         $this->msg($msg);
+    }
+
+    /**
+     * Internal function that builds message.
+     * @param $message
+     * @param array $params
+     * @return string
+     */
+    private function _buildMessage($message, $params = [])
+    {
+        $p = [];
+        foreach ((array) $params as $name => $value) {
+            $p['{'.$name.'}'] = $value;
+        }
+
+        $message = ($p === []) ? $message : strtr($message, $p);
+        return $message;
     }
 }
