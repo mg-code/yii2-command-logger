@@ -99,10 +99,24 @@ trait LoggingTrait
      */
     public function logException($exception)
     {
-        $this->msg($exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')');
-        $msg = get_class($this).' exception: '.$exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')'.PHP_EOL.$exception->getTraceAsString();
+        $msg = get_class($this).' exception: '.$this->getMsgFromException($exception, true);
         \Yii::error($msg, $this->_loggingCategory);
         $this->msg($msg);
+    }
+
+    /**
+     * Generates error message from exception.
+     * @param \Exception $exception
+     * @param bool $includeTrace
+     * @return string
+     */
+    public function getMsgFromException(\Exception $exception, $includeTrace = false)
+    {
+        $msg = $exception->getMessage().' ('.$exception->getFile().':'.$exception->getLine().')';
+        if ($includeTrace) {
+            $msg .= PHP_EOL.$exception->getTraceAsString();
+        }
+        return $msg;
     }
 
     /**
