@@ -120,6 +120,17 @@ trait LoggingTrait
     }
 
     /**
+     * Returns memory usage string.
+     * @return string
+     */
+    public function getMemoryUsageMsg()
+    {
+        $peakUsage = round(memory_get_peak_usage() / 1024 / 1024, 1);
+        $memoryUsage = round(memory_get_usage() / 1024 / 1024, 1);
+        return "Memory usage: {$memoryUsage}MB (peak: {$peakUsage}MB) ";
+    }
+
+    /**
      * Internal function that builds message.
      * @param $message
      * @param array $params
