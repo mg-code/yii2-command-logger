@@ -96,10 +96,11 @@ trait LoggingTrait
      * Logs and outputs exception
      * Usually needed for CLI commands, when execution should continue after some error.
      * @param \Exception $exception
+     * @param boolean $includeTrace
      */
-    public function logException($exception)
+    public function logException($exception, $includeTrace = true)
     {
-        $msg = get_class($this).' exception: '.$this->getMsgFromException($exception, true);
+        $msg = get_class($this).' exception: '.$this->getMsgFromException($exception, $includeTrace);
         \Yii::error($msg, $this->_loggingCategory);
         $this->msg($msg);
     }
